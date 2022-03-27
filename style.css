@@ -1,0 +1,11 @@
+.tube-bar text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 1.15rem;
+  text-anchor: middle;
+  alignment-baseline: middle;
+}
+
+.tube-bar .bg-rect {
+  fill: #cccccc;
+}

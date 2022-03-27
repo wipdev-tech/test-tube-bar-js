@@ -24,13 +24,13 @@ const renderBar = (data) => {
     .range(["#e2733d", "#337f88", "#de4c68"]);
 
   // axes
-  const yAxis = d3.axisLeft(yScale);
+  // const yAxis = d3.axisLeft(yScale);
 
   const g = svg
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  g.append("g").call(yAxis);
+  // g.append("g").call(yAxis);
 
   tubeBarsG = g
     .selectAll("rect.data")
@@ -49,13 +49,13 @@ const renderBar = (data) => {
   // bg rects
   tubeBarsG
     .append("rect")
-    .attr("fill", "#444444")
+    .classed("bg-rect", true)
     .attr("x", (d) => xScale(xValue(d)))
     .attr("width", xScale.bandwidth())
     .attr("height", innerHeight);
   tubeBarsG
     .append("rect")
-    .attr("fill", "#444444")
+    .classed("bg-rect", true)
     .attr("x", (d) => xScale(xValue(d)) - 10)
     .attr("y", -30)
     .attr("width", xScale.bandwidth() + 20)
@@ -92,8 +92,6 @@ const renderBar = (data) => {
     .attr("fill", (d) => cScale(xValue(d)))
     .attr("x", (d) => xScale(xValue(d)) + 0.5 * xScale.bandwidth())
     .attr("y", -15)
-    .attr("text-anchor", "middle")
-    .attr("alignment-baseline", "middle")
     .text(0)
     .transition()
     .duration(1500)
