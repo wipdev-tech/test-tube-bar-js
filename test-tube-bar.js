@@ -16,11 +16,11 @@ const renderBar = (data) => {
     .scaleBand()
     .domain(data.map(xValue))
     .range([0, innerWidth])
-    .padding(0.3);
+    .padding(0.4);
 
   const cScale = d3
     .scaleOrdinal()
-    .domain((d) => d.map(xValue))
+    .domain(data.map(xValue))
     .range(["#e2733d", "#337f88", "#de4c68"]);
 
   // axes
@@ -53,6 +53,13 @@ const renderBar = (data) => {
     .attr("x", (d) => xScale(xValue(d)))
     .attr("width", xScale.bandwidth())
     .attr("height", innerHeight);
+  tubeBarsG
+    .append("rect")
+    .attr("fill", "#444444")
+    .attr("x", (d) => xScale(xValue(d)) - 10)
+    .attr("y", -30)
+    .attr("width", xScale.bandwidth() + 20)
+    .attr("height", 30);
 
   // tube base
   tubeBarsG
@@ -84,13 +91,16 @@ const renderBar = (data) => {
     .append("text")
     .attr("fill", (d) => cScale(xValue(d)))
     .attr("x", (d) => xScale(xValue(d)) + 0.5 * xScale.bandwidth())
-    .attr("y", -10)
+    .attr("y", -15)
     .attr("text-anchor", "middle")
-    .text((d) => d3.format(".1%")(yValue(d)))
-    .attr("opacity", 0)
+    .attr("alignment-baseline", "middle")
+    .text(0)
     .transition()
     .duration(1500)
-    .attr("opacity", 1);
+    .textTween(function (d) {
+      const i = d3.interpolate(0, yValue(d));
+      return (t) => d3.format(".1%")(i(t));
+    });
 };
 
 const data = [
